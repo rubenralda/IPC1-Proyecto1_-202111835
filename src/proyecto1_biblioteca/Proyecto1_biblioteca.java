@@ -4,6 +4,8 @@
  */
 package proyecto1_biblioteca;
 
+import java.awt.Color;
+
 /**
  *
  * @author ruben
@@ -15,8 +17,11 @@ public class Proyecto1_biblioteca {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Principal pantalla1= new Principal();
+        Usuarios[] usuario=new Usuarios[50];
+        usuario[0]=new Usuarios(1,"admin","","admin","admin","admin");
+        Principal pantalla1= new Principal(usuario);
         pantalla1.setVisible(true);
+        pantalla1.getContentPane().setBackground(Color.WHITE);
     }
     
 }
