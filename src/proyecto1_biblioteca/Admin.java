@@ -143,7 +143,7 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
         Crear_usuario crear= new Crear_usuario(this,true,usuario);
         crear.setVisible(true);
-        
+        usuario=crear.getGuardar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

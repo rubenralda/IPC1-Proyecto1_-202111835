@@ -16,15 +16,15 @@ public class Crear_usuario extends javax.swing.JDialog {
      * Creates new form Crear_usuario
      */
     public Usuarios[] guardar;
-    private int i=0;
+
     public Crear_usuario(java.awt.Frame parent, boolean modal, Usuarios[] usuario) {
         super(parent, modal);
         this.guardar=usuario;
         initComponents();
-        while(guardar[i]!=null){
-            i++;
-        }
-        System.out.print(i);
+    }
+
+    public Usuarios[] getGuardar() {
+        return guardar;
     }
     
     /**
@@ -179,13 +179,22 @@ public class Crear_usuario extends javax.swing.JDialog {
                             if (txt_contra.getText().equals(txt_confirmar.getText())) {
                                 try{
                                     int j=0;
-                                    while(guardar[j]!=null ){
+                                    boolean existe=false;
+                                    while(guardar[j]!=null && existe==false ){
                                         if (guardar[j].getDpi()==Integer.parseInt(txt_id.getText())) {
-                                            
-                                        } 
+                                            JOptionPane.showMessageDialog(null,"El ID ya existe"
+                                                 + ", utilice otro", 
+                                                "Error",JOptionPane.ERROR_MESSAGE);
+                                            existe=true;
+                                        }
+                                        j++;
                                     }
-                                    guardar[i]= new Usuarios(Integer.parseInt(txt_id.getText()),txt_nombre.getText(),txt_apellido.getText(),
+                                    if (!existe) {
+                                        guardar[j]= new Usuarios(Integer.parseInt(txt_id.getText()),txt_nombre.getText(),txt_apellido.getText(),
                                             txt_user.getText(),txt_rol.getText(),txt_contra.getText());
+                                        JOptionPane.showMessageDialog(null,"El usuario se creó con exito","Error",JOptionPane.ERROR_MESSAGE);
+                                    }
+                                    
                                 }catch(Exception e){
                                       JOptionPane.showMessageDialog(null,"El id es incorrecto error: "+e,"Error",JOptionPane.ERROR_MESSAGE);
                                       txt_id.setText("");
