@@ -55,8 +55,18 @@ public class Admin extends javax.swing.JFrame {
         });
 
         jButton2.setText("Modificar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Eliminar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Mostrar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -156,6 +166,18 @@ public class Admin extends javax.swing.JFrame {
         Mostrar_usuario ver= new Mostrar_usuario(this,true,usuario);
         ver.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Eliminar_usuario eliminar= new Eliminar_usuario(this,true,usuario);
+        eliminar.setVisible(true);
+        usuario=eliminar.getEliminar();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

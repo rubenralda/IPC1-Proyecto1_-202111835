@@ -188,6 +188,9 @@ public class Crear_usuario extends javax.swing.JDialog {
                                             existe=true;
                                         }
                                         j++;
+                                        if (j>50) {
+                                            break;
+                                        }
                                     }
                                     if (!existe) {
                                         guardar[j]= new Usuarios(Integer.parseInt(txt_id.getText()),txt_nombre.getText(),txt_apellido.getText(),
