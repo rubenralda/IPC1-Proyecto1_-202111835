@@ -37,6 +37,7 @@ public class Login extends javax.swing.JFrame{
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Ingresar");
@@ -137,7 +138,7 @@ public class Login extends javax.swing.JFrame{
             if (usuario[i]!=null) {
                 if (usuario[i].getUser().equals(txt_usuario.getText())) {
                     if (usuario[i].getPass().equals(txt_contra.getText())) {
-                        Admin admin= new Admin();
+                        Admin admin= new Admin(usuario);
                         admin.setVisible(true);
                         this.dispose();
                     }else{
