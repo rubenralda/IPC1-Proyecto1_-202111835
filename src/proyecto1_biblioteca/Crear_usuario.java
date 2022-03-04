@@ -192,7 +192,7 @@ public class Crear_usuario extends javax.swing.JDialog {
                                     if (!existe) {
                                         guardar[j]= new Usuarios(Integer.parseInt(txt_id.getText()),txt_nombre.getText(),txt_apellido.getText(),
                                             txt_user.getText(),txt_rol.getText(),txt_contra.getText());
-                                        JOptionPane.showMessageDialog(null,"El usuario se creó con exito","Error",JOptionPane.ERROR_MESSAGE);
+                                        JOptionPane.showMessageDialog(null,"El usuario se creó con exito","Mensaje",JOptionPane.INFORMATION_MESSAGE);
                                     }
                                     
                                 }catch(Exception e){

@@ -59,6 +59,11 @@ public class Admin extends javax.swing.JFrame {
         jButton3.setText("Eliminar");
 
         jButton4.setText("Mostrar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Crear");
 
@@ -145,6 +150,12 @@ public class Admin extends javax.swing.JFrame {
         crear.setVisible(true);
         usuario=crear.getGuardar();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        Mostrar_usuario ver= new Mostrar_usuario(this,true,usuario);
+        ver.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
