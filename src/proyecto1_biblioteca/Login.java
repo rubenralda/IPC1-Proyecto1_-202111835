@@ -141,6 +141,7 @@ public class Login extends javax.swing.JFrame{
                         Admin admin= new Admin(usuario);
                         admin.setVisible(true);
                         this.dispose();
+                        break;
                     }else{
                         JOptionPane.showMessageDialog(null,"El usuario y contraseña "
                             + "no coinciden por favor revise sus datos", 
