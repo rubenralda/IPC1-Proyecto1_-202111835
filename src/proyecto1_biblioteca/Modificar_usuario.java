@@ -10,20 +10,20 @@ import javax.swing.JOptionPane;
  *
  * @author ruben
  */
-public class Eliminar_usuario extends javax.swing.JDialog {
+public class Modificar_usuario extends javax.swing.JDialog {
 
     /**
-     * Creates new form Eliminar_usuario
+     * Creates new form Modificar_usuario
      */
-    private Usuarios[] eliminar;
-
-    public Usuarios[] getEliminar() {
-        return eliminar;
-    }
-    public Eliminar_usuario(java.awt.Frame parent, boolean modal, Usuarios[] usuario) {
+    private Usuarios[] modificar;
+    public Modificar_usuario(java.awt.Frame parent, boolean modal,Usuarios[] usuarios) {
         super(parent, modal);
-        this.eliminar=usuario;
+        this.modificar=usuarios;
         initComponents();
+    }
+
+    public Usuarios[] getModificar() {
+        return modificar;
     }
 
     /**
@@ -35,25 +35,29 @@ public class Eliminar_usuario extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txt_id = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        txt_apellido = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         txt_user = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         txt_rol = new javax.swing.JTextField();
+        txt_id = new javax.swing.JTextField();
         txt_nombre = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        txt_apellido = new javax.swing.JTextField();
         txt_contra = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton1.setText("Eliminar");
+        jLabel2.setText("Nombre");
+
+        jLabel4.setText("User");
+
+        jButton1.setText("Modificar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -61,6 +65,8 @@ public class Eliminar_usuario extends javax.swing.JDialog {
         });
 
         jLabel1.setText("ID");
+
+        jLabel5.setText("Rol");
 
         jLabel3.setText("Apellido");
 
@@ -71,20 +77,6 @@ public class Eliminar_usuario extends javax.swing.JDialog {
             }
         });
 
-        txt_apellido.setEnabled(false);
-
-        jLabel2.setText("Nombre");
-
-        jLabel4.setText("User");
-
-        txt_user.setEnabled(false);
-
-        jLabel5.setText("Rol");
-
-        txt_rol.setEnabled(false);
-
-        txt_nombre.setEnabled(false);
-
         jLabel6.setText("Contraseña");
 
         jButton3.setText("Buscar");
@@ -93,8 +85,6 @@ public class Eliminar_usuario extends javax.swing.JDialog {
                 jButton3ActionPerformed(evt);
             }
         });
-
-        txt_contra.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,7 +169,7 @@ public class Eliminar_usuario extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -188,19 +178,39 @@ public class Eliminar_usuario extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if (j>1) {
-            int i=j-1;
-            for (; i < eliminar.length-1; i++) {
-                eliminar[i]=eliminar[i+1];
+            try {
+                int i=0;
+                boolean existe=false;
+                while(modificar[i]!=null && existe==false){
+                    if (modificar[i].getDpi()==Integer.parseInt(txt_id.getText())) {
+                        if (j-1!=i) {
+                            existe=true;
+                        }
+                    }
+                    i++;
+                    if (i>49) {
+                        break;
+                    }
+                }
+                if (!existe) {
+                    modificar[j-1]= new Usuarios(Integer.parseInt(txt_id.getText()),txt_nombre.getText(),txt_apellido.getText(),
+                        txt_user.getText(),txt_rol.getText(),txt_contra.getText());
+                    txt_id.setText(String.valueOf(txt_id.getText()));
+                    txt_nombre.setText(modificar[j-1].getNombre());
+                    txt_apellido.setText(modificar[j-1].getApellido());
+                    txt_user.setText(modificar[j-1].getUser());
+                    txt_rol.setText(modificar[j-1].getRol());
+                    txt_contra.setText(modificar[j-1].getPass());
+                    JOptionPane.showMessageDialog(null,"El usuario se modificó correctamente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null,"El ID a modificar ya existe","Error",JOptionPane.ERROR_MESSAGE);
+                } 
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,"El id es invalido, error: "+e,"Error",JOptionPane.ERROR_MESSAGE);
+                txt_id.setText("");
             }
-            eliminar[i]=null;
-            j=0;
-            JOptionPane.showMessageDialog(null,"El usuario se eliminó correctamente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-            txt_id.setText("");
-            txt_nombre.setText("");
-            txt_apellido.setText("");
-            txt_user.setText("");
-            txt_rol.setText("");
-            txt_contra.setText("");
+         
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -215,8 +225,8 @@ public class Eliminar_usuario extends javax.swing.JDialog {
             try{
                 j=0;
                 boolean existe=false;
-                while(eliminar[j]!=null && existe==false){
-                    if (eliminar[j].getDpi()==Integer.parseInt(txt_id.getText())) {
+                while(modificar[j]!=null && existe==false){
+                    if (modificar[j].getDpi()==Integer.parseInt(txt_id.getText())) {
                         existe=true;
                     }
                     j++;
@@ -225,11 +235,11 @@ public class Eliminar_usuario extends javax.swing.JDialog {
                     }
                 }
                 if (existe) {
-                    txt_nombre.setText(eliminar[j-1].getNombre());
-                    txt_apellido.setText(eliminar[j-1].getApellido());
-                    txt_user.setText(eliminar[j-1].getUser());
-                    txt_rol.setText(eliminar[j-1].getRol());
-                    txt_contra.setText(eliminar[j-1].getPass());
+                    txt_nombre.setText(modificar[j-1].getNombre());
+                    txt_apellido.setText(modificar[j-1].getApellido());
+                    txt_user.setText(modificar[j-1].getUser());
+                    txt_rol.setText(modificar[j-1].getRol());
+                    txt_contra.setText(modificar[j-1].getPass());
                 }else{
                     JOptionPane.showMessageDialog(null,"El ID no existe"
                         + ", utilice otro",
@@ -241,7 +251,6 @@ public class Eliminar_usuario extends javax.swing.JDialog {
                 txt_id.setText("");
             }
         }
-
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

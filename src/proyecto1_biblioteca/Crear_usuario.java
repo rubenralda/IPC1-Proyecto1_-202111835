@@ -188,13 +188,20 @@ public class Crear_usuario extends javax.swing.JDialog {
                                             existe=true;
                                         }
                                         j++;
-                                        if (j>50) {
+                                        if (j>49) {
                                             break;
                                         }
                                     }
                                     if (!existe) {
                                         guardar[j]= new Usuarios(Integer.parseInt(txt_id.getText()),txt_nombre.getText(),txt_apellido.getText(),
                                             txt_user.getText(),txt_rol.getText(),txt_contra.getText());
+                                        txt_id.setText("");
+                                        txt_nombre.setText("");
+                                        txt_apellido.setText("");
+                                        txt_user.setText("");
+                                        txt_rol.setText("");
+                                        txt_contra.setText("");
+                                        txt_confirmar.setText("");
                                         JOptionPane.showMessageDialog(null,"El usuario se creó con exito","Mensaje",JOptionPane.INFORMATION_MESSAGE);
                                     }
                                     
