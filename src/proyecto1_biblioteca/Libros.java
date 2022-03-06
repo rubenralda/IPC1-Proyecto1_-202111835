@@ -13,26 +13,57 @@ public class Libros {
     int anio_publi,isbn,edicion,copias,disponible,ejemplares,tamano,tipo;
     String[] claves,temas;
 
-    public Libros(int tipo,String autor,int anio_publi, int isbn,String titulo, int edicion,String[] claves,String descripcion, String[] temas,int copias, String categoria, int ejemplares,String area,    int disponible,  int tamano) {
+    public Libros(int tipo,String autor,int anio_publi, int isbn,String titulo, int edicion,String[] claves,String descripcion, String[] temas,int copias,int disponible) {
+        this.tipo=tipo;
+        this.autor = autor;
+        this.anio_publi = anio_publi;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.isbn = isbn;
+        this.edicion = edicion;
+        this.copias = copias;
+        this.disponible = disponible;
+        this.claves = claves;
+        this.temas = temas; 
+    }
+    public Libros(int tipo,String autor,int anio_publi, String titulo, int edicion,String[] claves,String descripcion, String[] temas,int copias, String categoria, int ejemplares, int disponible) {
         this.tipo=tipo;
         this.autor = autor;
         this.anio_publi = anio_publi;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.categoria = categoria;
-        this.area = area;
-        this.isbn = isbn;
         this.edicion = edicion;
         this.copias = copias;
         this.disponible = disponible;
         this.ejemplares = ejemplares;
+        this.claves = claves;
+        this.temas = temas; 
+    }
+    public Libros(int tipo,String autor,int anio_publi,String titulo, int edicion,String[] claves,String descripcion, String[] temas,int copias,String area,int disponible) {
+        this.tipo=tipo;
+        this.autor = autor;
+        this.anio_publi = anio_publi;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.area = area;
+        this.edicion = edicion;
+        this.copias = copias;
+        this.disponible = disponible;
+        this.claves = claves;
+        this.temas = temas; 
+    }
+    public Libros(int tipo,String autor,int anio_publi,String titulo, int edicion,String[] claves,String descripcion, String[] temas,int tamano) {
+        this.tipo=tipo;
+        this.autor = autor;
+        this.anio_publi = anio_publi;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.edicion = edicion;
         this.tamano = tamano;
         this.claves = claves;
-        this.temas = temas;
-        
+        this.temas = temas; 
     }
-
-    
 
     public void setAutor(String autor) {
         this.autor = autor;

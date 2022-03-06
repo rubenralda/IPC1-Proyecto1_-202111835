@@ -13,13 +13,14 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    Usuarios[] usu;
-
+    private Usuarios[] usu;
+    private Libros[] libros;
    
     
-    public Principal(Usuarios[] usu) {
+    public Principal(Usuarios[] usu, Libros[] libros) {
         initComponents();
         this.usu=usu;
+        this.libros=libros;
     }
 
     /**
@@ -117,7 +118,7 @@ public class Principal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        Login login= new Login(usu);
+        Login login= new Login(usu,libros);
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

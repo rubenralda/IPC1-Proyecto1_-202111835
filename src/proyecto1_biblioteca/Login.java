@@ -14,9 +14,11 @@ public class Login extends javax.swing.JFrame{
      * Creates new form Login
      */
     Usuarios[] usuario;
-    public Login(Usuarios[] usuario) {
+    Libros[] libros;
+    public Login(Usuarios[] usuario,Libros[] libros) {
         initComponents();
         this.usuario=usuario;
+        this.libros=libros;
     }
 
     /**
@@ -125,7 +127,7 @@ public class Login extends javax.swing.JFrame{
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Principal prin=new Principal(usuario);
+        Principal prin=new Principal(usuario,libros);
         prin.setVisible(true);
         this.dispose();
         txt_usuario.setText("");
@@ -138,7 +140,7 @@ public class Login extends javax.swing.JFrame{
             if (usuario[i]!=null) {
                 if (usuario[i].getUser().equals(txt_usuario.getText())) {
                     if (usuario[i].getPass().equals(txt_contra.getText())) {
-                        Admin admin= new Admin(usuario);
+                        Admin admin= new Admin(usuario,libros);
                         admin.setVisible(true);
                         this.dispose();
                         break;
