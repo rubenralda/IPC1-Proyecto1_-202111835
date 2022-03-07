@@ -58,6 +58,11 @@ public class Admin extends javax.swing.JFrame {
         jButton7.setText("Eliminar");
 
         jButton8.setText("Mostrar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Bibliografías");
 
@@ -253,6 +258,13 @@ public class Admin extends javax.swing.JFrame {
         indi.setVisible(true);
         libros=indi.getLibros();
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        Mostrar_biblio mostrar = new Mostrar_biblio(this,true,libros);
+        mostrar.setVisible(true);
+        libros=mostrar.getLibros();
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
