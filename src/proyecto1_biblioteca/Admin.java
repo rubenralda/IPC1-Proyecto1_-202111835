@@ -117,6 +117,11 @@ public class Admin extends javax.swing.JFrame {
         });
 
         jButton13.setText("Carga masiva");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -263,8 +268,15 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
         Mostrar_biblio mostrar = new Mostrar_biblio(this,true,libros);
         mostrar.setVisible(true);
-        libros=mostrar.getLibros();
+        
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        Carga_masiva masiva= new Carga_masiva(this,true,libros);
+        masiva.setVisible(true);
+        libros=masiva.getLibros();
+    }//GEN-LAST:event_jButton13ActionPerformed
 
     /**
      * @param args the command line arguments
