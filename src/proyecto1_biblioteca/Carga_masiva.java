@@ -150,7 +150,7 @@ public class Carga_masiva extends javax.swing.JDialog {
                             claves=libro[6].split(",");
                             temas=libro[8].split(",");
                             libros[i] = new Libros(Integer.parseInt(libro[0]), libro[1], Integer.parseInt(libro[2]),
-                                     libro[4], Integer.parseInt(libro[5]), claves, libro[6], temas,
+                                     libro[4], Integer.parseInt(libro[5]), claves, libro[7], temas,
                                     Integer.parseInt(libro[14]));
                             JOptionPane.showMessageDialog(null, "El libro digital se creó con exito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                             break;

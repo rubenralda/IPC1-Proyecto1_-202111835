@@ -15,10 +15,12 @@ public class Login extends javax.swing.JFrame{
      */
     Usuarios[] usuario;
     Libros[] libros;
-    public Login(Usuarios[] usuario,Libros[] libros) {
+    int[] prestamos;
+    public Login(Usuarios[] usuario,Libros[] libros,int[] prestamos) {
         initComponents();
         this.usuario=usuario;
         this.libros=libros;
+        this.prestamos=prestamos;
     }
 
     /**
@@ -127,7 +129,7 @@ public class Login extends javax.swing.JFrame{
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Principal prin=new Principal(usuario,libros);
+        Principal prin=new Principal(usuario,libros,prestamos);
         prin.setVisible(true);
         this.dispose();
         txt_usuario.setText("");
@@ -136,25 +138,39 @@ public class Login extends javax.swing.JFrame{
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        boolean existe=true;
+        boolean coincide=true;
         for (int i = 0; i < 50; i++) {
             if (usuario[i]!=null) {
                 if (usuario[i].getUser().equals(txt_usuario.getText())) {
+                    existe=true;
                     if (usuario[i].getPass().equals(txt_contra.getText())) {
-                        Admin admin= new Admin(usuario,libros);
-                        admin.setVisible(true);
-                        this.dispose();
-                        break;
+                        if (usuario[i].getUser().equalsIgnoreCase("admin")) {
+                            Admin admin= new Admin(usuario,libros);
+                            admin.setVisible(true);
+                            this.dispose();
+                            break;
+                        }else{
+                            Usuario_comun usu= new Usuario_comun(usuario,libros,i,prestamos);
+                            usu.setVisible(true);
+                            this.dispose();
+                            break;
+                        }
+                       
                     }else{
                         JOptionPane.showMessageDialog(null,"El usuario y contraseña "
                             + "no coinciden por favor revise sus datos", 
                             "Error",JOptionPane.ERROR_MESSAGE);
                     }
                 }else{
-                    JOptionPane.showMessageDialog(null,"El usuario no existe, "
-                            + "ponerse en contacto con el administrador para solicitar un registro", 
-                            "Error",JOptionPane.ERROR_MESSAGE);
+                    existe=false;
                 }
             }
+        }
+        if (existe==false) {
+            JOptionPane.showMessageDialog(null,"El usuario no existe, "
+                            + "ponerse en contacto con el administrador para solicitar un registro", 
+                            "Error",JOptionPane.ERROR_MESSAGE);
         }
     
     }//GEN-LAST:event_jButton1ActionPerformed
