@@ -4,6 +4,9 @@
  */
 package proyecto1_biblioteca;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ruben
@@ -13,9 +16,57 @@ public class Ver_prestamos extends javax.swing.JDialog {
     /**
      * Creates new form Ver_prestamos
      */
-    public Ver_prestamos(java.awt.Frame parent, boolean modal) {
+    Usuarios[] usuario;
+    Libros[] libro;
+    int posi;
+    int[] disponibles;
+
+    public Ver_prestamos(java.awt.Frame parent, boolean modal, Usuarios[] usuario, int posi,Libros[] libro) {
         super(parent, modal);
+        this.usuario = usuario;
+        this.libro=libro;
+        this.posi = posi;
+        this.disponibles = new int[50];
         initComponents();
+        mostrar();
+    }
+
+    public Usuarios[] getUsuario() {
+        return usuario;
+    }
+
+    public Libros[] getLibro() {
+        return libro;
+    }
+    
+    private void mostrar() {
+        int j = 0;
+        Object matriz[][] = new Object[usuario[posi].getLibros().length][4];
+        for (int i = 0; i < usuario[posi].getLibros().length; i++) {
+            if (usuario[posi].getLibros()[i] != null) {
+                if (usuario[posi].getLibros()[i].getTipo() != 3) {
+                    disponibles[j] = i;
+                    matriz[j][0] = j;
+                    matriz[j][1] = usuario[posi].getLibros()[i].getTitulo();
+                    switch (usuario[posi].getLibros()[i].getTipo()) {
+                        case 0:
+                            matriz[j][2] = "Libro";
+                            break;
+                        case 1:
+                            matriz[j][2] = "Revista";
+                            break;
+                        case 2:
+                            matriz[j][2] = "Tesis";
+                            break;
+                        default:
+                            throw new AssertionError();
+                    }
+                    DefaultTableModel model = (DefaultTableModel) tabla_pres.getModel();
+                    model.addRow(matriz[i]);
+                    j++;
+                }
+            }
+        }
     }
 
     /**
@@ -27,64 +78,114 @@ public class Ver_prestamos extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabla_pres = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        tabla_pres.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "No.", "Título", "Tipo"
+            }
+        ));
+        jScrollPane1.setViewportView(tabla_pres);
+
+        jButton2.setText("Regresar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Listado de prestamos");
+
+        jButton3.setText("Devolver");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(201, 201, 201))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButton2)
+                        .addComponent(jButton3)))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jButton2)
+                .addGap(2, 2, 2)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        if (tabla_pres.getSelectedRow() != -1) {
+            int i = disponibles[tabla_pres.getSelectedRow()];
+            
+            for (int j = 0; j < libro.length; j++) {
+                if (usuario[posi].getLibros()[i].equals(libro[j])) {
+                    libro[j].setDisponible(libro[j].getDisponible() + 1);
+                }
+            }
+            for (; i < usuario[posi].getLibros().length - 1; i++) {
+                usuario[posi].getLibros()[i] = usuario[posi].getLibros()[i + 1];
+            }
+            DefaultTableModel model = (DefaultTableModel) tabla_pres.getModel();
+            int fila = tabla_pres.getRowCount();
+            for (int k = 0; k < fila; k++) {
+                model.removeRow(0);
+            }
+            JOptionPane.showMessageDialog(this, "Se ha devuelto el libro a la biblioteca");
+            mostrar();
+        }else{
+             JOptionPane.showMessageDialog(null, "Seleccione una fila", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ver_prestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ver_prestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ver_prestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ver_prestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Ver_prestamos dialog = new Ver_prestamos(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tabla_pres;
     // End of variables declaration//GEN-END:variables
 }

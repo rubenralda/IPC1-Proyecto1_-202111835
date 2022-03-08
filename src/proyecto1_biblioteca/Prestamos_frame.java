@@ -115,6 +115,11 @@ public class Prestamos_frame extends javax.swing.JFrame {
         });
 
         jButton2.setText("Ver prestamos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Reporte existencias");
 
@@ -153,8 +158,8 @@ public class Prestamos_frame extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jButton6)
                                     .addGap(46, 46, 46)))
-                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(22, 22, 22))))
         );
         layout.setVerticalGroup(
@@ -419,13 +424,21 @@ public class Prestamos_frame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Se produjo un error, revise y vuelva a intentarlo. \nError: " + e, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Ver_prestamos ver = new Ver_prestamos(this,true,usuarios,posi,libros);
+        ver.setVisible(true);
+        usuarios=ver.getUsuario();
+        libros=ver.getLibro();
+    }//GEN-LAST:event_jButton2ActionPerformed
     public void mostrar(int i, int j) {
         Object matriz[][] = new Object[libros.length][16];
         switch (libros[j].getTipo()) {
             case 0:
                 disponibles[i] = j;
                 matriz[i][0] = i;
-                matriz[i][1] = String.valueOf(libros[j].getTipo());
+                matriz[i][1] = "Libro";
                 matriz[i][2] = libros[j].getAutor();
                 matriz[i][3] = String.valueOf(libros[j].getAnio_publi());
                 matriz[i][4] = String.valueOf(libros[j].getIsbn());
@@ -449,7 +462,7 @@ public class Prestamos_frame extends javax.swing.JFrame {
             case 1:
                 disponibles[i] = j;
                 matriz[i][0] = i;
-                matriz[i][1] = String.valueOf(libros[j].getTipo());
+                matriz[i][1] = "Revista";
                 matriz[i][2] = libros[j].getAutor();
                 matriz[i][3] = String.valueOf(libros[j].getAnio_publi());
                 matriz[i][4] = " ";
@@ -473,7 +486,7 @@ public class Prestamos_frame extends javax.swing.JFrame {
             case 2:
                 disponibles[i] = j;
                 matriz[i][0] = i;
-                matriz[i][1] = String.valueOf(libros[j].getTipo());
+                matriz[i][1] = "Tesis";
                 matriz[i][2] = libros[j].getAutor();
                 matriz[i][3] = String.valueOf(libros[j].getAnio_publi());
                 matriz[i][4] = " ";
@@ -500,9 +513,8 @@ public class Prestamos_frame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tabla_libros.getModel();
         model.addRow(matriz[i]);
     }
-    /**
-     * @param args the command line arguments
-     */
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> combo_atributo;
