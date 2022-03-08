@@ -193,8 +193,9 @@ public class Crear_usuario extends javax.swing.JDialog {
                                         }
                                     }
                                     if (!existe) {
+                                        Libros[] prestamos= new Libros[50];
                                         guardar[j]= new Usuarios(Integer.parseInt(txt_id.getText()),txt_nombre.getText(),txt_apellido.getText(),
-                                            txt_user.getText(),txt_rol.getText(),txt_contra.getText());
+                                            txt_user.getText(),txt_rol.getText(),txt_contra.getText(),prestamos);
                                         txt_id.setText("");
                                         txt_nombre.setText("");
                                         txt_apellido.setText("");

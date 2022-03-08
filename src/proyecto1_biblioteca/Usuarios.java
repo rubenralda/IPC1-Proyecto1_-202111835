@@ -11,14 +11,23 @@ package proyecto1_biblioteca;
 public class Usuarios {
     int dpi;
     String nombre,apellido,user,rol,pass;
-
-    public Usuarios(int dpi, String nombre, String apellido, String user, String rol, String pass) {
+    Libros[] libros;
+    public Usuarios(int dpi, String nombre, String apellido, String user, String rol, String pass,Libros[] libros) {
         this.dpi = dpi;
         this.nombre = nombre;
         this.apellido = apellido;
         this.user = user;
         this.rol = rol;
         this.pass = pass;
+        this.libros=libros;
+    }
+
+    public Libros[] getLibros() {
+        return libros;
+    }
+
+    public void setLibros(Libros[] libros) {
+        this.libros = libros;
     }
     
     public int getDpi() {

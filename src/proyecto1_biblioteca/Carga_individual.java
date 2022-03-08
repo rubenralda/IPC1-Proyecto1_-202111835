@@ -15,10 +15,11 @@ public class Carga_individual extends javax.swing.JDialog {
     /**
      * Creates new form Carga_individual
      */
-    private Libros [] libros;
-    public Carga_individual(java.awt.Frame parent, boolean modal,Libros[] libros) {
+    private Libros[] libros;
+
+    public Carga_individual(java.awt.Frame parent, boolean modal, Libros[] libros) {
         super(parent, modal);
-        this.libros=libros;
+        this.libros = libros;
         initComponents();
     }
 
@@ -305,57 +306,58 @@ public class Carga_individual extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int i=0;
+        int i = 0;
         int j = 0;
         try {
-            for (;libros[i]!=null; i++){}
-            String[] claves=txt_clave.getText().split(",");
-            String[] temas= txt_temas.getText().split(",");
+            for (; libros[i] != null; i++) {
+            }
+            String[] claves = txt_clave.getText().split(",");
+            String[] temas = txt_temas.getText().split(",");
             switch (combo_tipo.getSelectedIndex()) {
-            case 0:
-                //libros
-                libros[i]=new Libros(combo_tipo.getSelectedIndex(),txt_autor.getText(),Integer.parseInt(txt_anio.getText())
-                ,Integer.parseInt(txt_isbn.getText()),txt_titulo.getText(),Integer.parseInt(txt_edicion.getText()),claves,txt_descripcion.getText(),temas,
-                Integer.parseInt(txt_copias.getText())
-                ,Integer.parseInt(txt_disponible.getText()));
-                JOptionPane.showMessageDialog(null,"El "+combo_tipo.getSelectedItem()+" se creó con exito","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-                break;
-            case 1:
-                //revista
-               libros[i]=new Libros(combo_tipo.getSelectedIndex(),txt_autor.getText(),Integer.parseInt(txt_anio.getText())
-               ,txt_titulo.getText(),Integer.parseInt(txt_edicion.getText()),claves,txt_descripcion.getText(),temas,
-                Integer.parseInt(txt_copias.getText()),txt_categoria.getText(),Integer.parseInt(txt_ejem.getText())
-               ,Integer.parseInt(txt_disponible.getText()));
-               JOptionPane.showMessageDialog(null,"La"+combo_tipo.getSelectedItem()+" se creó con exito","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-                break;
-            case 2:
-                //tesis
-                libros[i]=new Libros(combo_tipo.getSelectedIndex(),txt_autor.getText(),Integer.parseInt(txt_anio.getText())
-                ,txt_titulo.getText(),Integer.parseInt(txt_edicion.getText()),claves,txt_descripcion.getText(),temas,
-                Integer.parseInt(txt_copias.getText()),txt_area.getText()
-                ,Integer.parseInt(txt_disponible.getText()));
-                JOptionPane.showMessageDialog(null,"La "+combo_tipo.getSelectedItem()+" se creó con exito","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-                break;
-            case 3:
-               //digital
-                libros[i]=new Libros(combo_tipo.getSelectedIndex(),txt_autor.getText(),Integer.parseInt(txt_anio.getText())
-                ,txt_titulo.getText(),Integer.parseInt(txt_edicion.getText()),claves,txt_descripcion.getText(),temas,
-                Integer.parseInt(txt_tamano.getText()));
-                JOptionPane.showMessageDialog(null,"El "+combo_tipo.getSelectedItem()+" se creó con exito","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-                break;
-            default:
-                throw new AssertionError();
-        }
+                case 0:
+                    //libros
+                    libros[i] = new Libros(combo_tipo.getSelectedIndex(), txt_autor.getText(), Integer.parseInt(txt_anio.getText()),
+                             Integer.parseInt(txt_isbn.getText()), txt_titulo.getText(), Integer.parseInt(txt_edicion.getText()), claves, txt_descripcion.getText(), temas,
+                            Integer.parseInt(txt_copias.getText()),
+                             Integer.parseInt(txt_disponible.getText()));
+                    JOptionPane.showMessageDialog(null, "El libro se creó con exito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case 1:
+                    //revista
+                    libros[i] = new Libros(combo_tipo.getSelectedIndex(), txt_autor.getText(), Integer.parseInt(txt_anio.getText()),
+                             txt_titulo.getText(), Integer.parseInt(txt_edicion.getText()), claves, txt_descripcion.getText(), temas,
+                            Integer.parseInt(txt_copias.getText()), txt_categoria.getText(), Integer.parseInt(txt_ejem.getText()),
+                             Integer.parseInt(txt_disponible.getText()));
+                    JOptionPane.showMessageDialog(null, "La revista se creó con exito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case 2:
+                    //tesis
+                    libros[i] = new Libros(combo_tipo.getSelectedIndex(), txt_autor.getText(), Integer.parseInt(txt_anio.getText()),
+                             txt_titulo.getText(), Integer.parseInt(txt_edicion.getText()), claves, txt_descripcion.getText(), temas,
+                            Integer.parseInt(txt_copias.getText()), txt_area.getText(),
+                             Integer.parseInt(txt_disponible.getText()));
+                    JOptionPane.showMessageDialog(null, "La tesis se creó con exito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case 3:
+                    //digital
+                    libros[i] = new Libros(combo_tipo.getSelectedIndex(), txt_autor.getText(), Integer.parseInt(txt_anio.getText()),
+                             txt_titulo.getText(), Integer.parseInt(txt_edicion.getText()), claves, txt_descripcion.getText(), temas,
+                            Integer.parseInt(txt_tamano.getText()));
+                    JOptionPane.showMessageDialog(null, "El libro digital se creó con exito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Se produjo un error, revise y vuelva a intentarlo. \nError: "+e,"Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Se produjo un error, revise y vuelva a intentarlo. \nError: " + e, "Error", JOptionPane.ERROR_MESSAGE);
         }
-       
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-  
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> combo_tipo;
     private javax.swing.JButton jButton1;

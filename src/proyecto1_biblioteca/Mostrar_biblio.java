@@ -4,6 +4,8 @@
  */
 package proyecto1_biblioteca;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ruben
@@ -18,9 +20,9 @@ public class Mostrar_biblio extends javax.swing.JDialog {
     public Mostrar_biblio(java.awt.Frame parent, boolean modal, Libros[] libros) {
         super(parent, modal);
         this.libros = libros;
-       
+
         initComponents();
-         mostrar();
+        mostrar();
     }
 
     public Libros[] getLibros() {
@@ -29,7 +31,7 @@ public class Mostrar_biblio extends javax.swing.JDialog {
 
     public void mostrar() {
 
-        String matriz[][] = new String[libros.length][14];
+        String matriz[][] = new String[libros.length][16];
         for (int i = 0; i < libros.length; i++) {
             if (libros[i] != null) {
                 switch (libros[i].getTipo()) {
@@ -41,13 +43,21 @@ public class Mostrar_biblio extends javax.swing.JDialog {
                         matriz[i][4] = String.valueOf(libros[i].getIsbn());
                         matriz[i][5] = libros[i].getTitulo();
                         matriz[i][6] = String.valueOf(libros[i].getEdicion());
-                        matriz[i][7] = libros[i].getDescripcion();
-                        matriz[i][8] = String.valueOf(libros[i].getCopias());
-                        matriz[i][9] = " ";
-                        matriz[i][10] = " ";
+                        matriz[i][7] = "";
+                        for (int k = 0; k < libros[i].getClaves().length; k++) {
+                            matriz[i][7] += libros[i].getClaves()[k] + ",";
+                        }
+                        matriz[i][8] = libros[i].getDescripcion();
+                        matriz[i][9] = "";
+                        for (int k = 0; k < libros[i].getTemas().length; k++) {
+                            matriz[i][9] += libros[i].getTemas()[k] + ",";
+                        }
+                        matriz[i][10] = String.valueOf(libros[i].getCopias());
                         matriz[i][11] = " ";
-                        matriz[i][12] = String.valueOf(libros[i].getDisponible());
+                        matriz[i][12] = " ";
                         matriz[i][13] = " ";
+                        matriz[i][14] = String.valueOf(libros[i].getDisponible());
+                        matriz[i][15] = " ";
                         break;
                     case 1:
                         matriz[i][0] = String.valueOf(i);
@@ -57,13 +67,21 @@ public class Mostrar_biblio extends javax.swing.JDialog {
                         matriz[i][4] = " ";
                         matriz[i][5] = libros[i].getTitulo();
                         matriz[i][6] = String.valueOf(libros[i].getEdicion());
-                        matriz[i][7] = libros[i].getDescripcion();
-                        matriz[i][8] = String.valueOf(libros[i].getCopias());
-                        matriz[i][9] = libros[i].getCategoria();
-                        matriz[i][10] = String.valueOf(libros[i].getEjemplares());
-                        matriz[i][11] = " ";
-                        matriz[i][12] = String.valueOf(libros[i].getDisponible());
+                        matriz[i][7] = "";
+                        for (int k = 0; k < libros[i].getClaves().length; k++) {
+                            matriz[i][7] += libros[i].getClaves()[k] + ",";
+                        }
+                        matriz[i][8] = libros[i].getDescripcion();
+                        matriz[i][9] = "";
+                        for (int k = 0; k < libros[i].getTemas().length; k++) {
+                            matriz[i][9] += libros[i].getTemas()[k] + ",";
+                        }
+                        matriz[i][10] = String.valueOf(libros[i].getCopias());
+                        matriz[i][11] = libros[i].getCategoria();
+                        matriz[i][12] = String.valueOf(libros[i].getEjemplares());
                         matriz[i][13] = " ";
+                        matriz[i][14] = String.valueOf(libros[i].getDisponible());
+                        matriz[i][15] = " ";
                         break;
                     case 2:
                         matriz[i][0] = String.valueOf(i);
@@ -73,13 +91,21 @@ public class Mostrar_biblio extends javax.swing.JDialog {
                         matriz[i][4] = " ";
                         matriz[i][5] = libros[i].getTitulo();
                         matriz[i][6] = String.valueOf(libros[i].getEdicion());
-                        matriz[i][7] = libros[i].getDescripcion();
-                        matriz[i][8] = String.valueOf(libros[i].getCopias());
-                        matriz[i][9] = " ";
-                        matriz[i][10] = " ";
-                        matriz[i][11] = libros[i].getArea();
-                        matriz[i][12] = String.valueOf(libros[i].getDisponible());
-                        matriz[i][13] = " ";
+                       matriz[i][7]="";
+                        for (int k = 0; k < libros[i].getClaves().length; k++) {
+                            matriz[i][7] += libros[i].getClaves()[k] + ",";
+                        }
+                        matriz[i][8] = libros[i].getDescripcion();
+                        matriz[i][9]="";
+                        for (int k = 0; k < libros[i].getTemas().length; k++) {
+                            matriz[i][9] += libros[i].getTemas()[k] + ",";
+                        }
+                        matriz[i][10] = String.valueOf(libros[i].getCopias());
+                        matriz[i][11] = " ";
+                        matriz[i][12] = " ";
+                        matriz[i][13] = libros[i].getArea();
+                        matriz[i][14] = String.valueOf(libros[i].getDisponible());
+                        matriz[i][15] = " ";
                         break;
                     case 3:
                         matriz[i][0] = String.valueOf(i);
@@ -89,13 +115,21 @@ public class Mostrar_biblio extends javax.swing.JDialog {
                         matriz[i][4] = " ";
                         matriz[i][5] = libros[i].getTitulo();
                         matriz[i][6] = String.valueOf(libros[i].getEdicion());
-                        matriz[i][7] = libros[i].getDescripcion();
-                        matriz[i][8] = " ";
-                        matriz[i][9] = " ";
+                        matriz[i][7]="";
+                        for (int k = 0; k < libros[i].getClaves().length; k++) {
+                            matriz[i][7] += libros[i].getClaves()[k] + ",";
+                        }
+                        matriz[i][8] = libros[i].getDescripcion();
+                        matriz[i][9]="";
+                        for (int k = 0; k < libros[i].getTemas().length; k++) {
+                            matriz[i][9] += libros[i].getTemas()[k] + ",";
+                        }
                         matriz[i][10] = " ";
                         matriz[i][11] = " ";
                         matriz[i][12] = " ";
-                        matriz[i][13] = String.valueOf(libros[i].getTamano());
+                        matriz[i][13] = " ";
+                        matriz[i][14] = " ";
+                        matriz[i][15] = String.valueOf(libros[i].getTamano());
                         break;
                     default:
                         throw new AssertionError();
@@ -105,7 +139,7 @@ public class Mostrar_biblio extends javax.swing.JDialog {
         tabla_libros.setModel(new javax.swing.table.DefaultTableModel(
                 matriz,
                 new String[]{
-                    "No.", "Tipo", "Autor", "Año", "ISBN", "Titulo", "Edicion", "Descripcion", "Copias", "Categorias",
+                    "No.", "Tipo", "Autor", "Año", "ISBN", "Titulo", "Edicion", "Palabras clave", "Descripcion", "Temas", "Copias", "Categorias",
                     "Ejemplares", "Area", "Disponibles", "Tamaño"
                 }
         ));
@@ -127,6 +161,7 @@ public class Mostrar_biblio extends javax.swing.JDialog {
 
         tabla_libros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {},
                 {},
                 {},
                 {},

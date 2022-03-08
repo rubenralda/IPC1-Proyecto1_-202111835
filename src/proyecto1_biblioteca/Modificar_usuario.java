@@ -193,8 +193,13 @@ public class Modificar_usuario extends javax.swing.JDialog {
                     }
                 }
                 if (!existe) {
-                    modificar[j-1]= new Usuarios(Integer.parseInt(txt_id.getText()),txt_nombre.getText(),txt_apellido.getText(),
-                        txt_user.getText(),txt_rol.getText(),txt_contra.getText());
+                    modificar[j-1].setDpi(Integer.parseInt(txt_id.getText()));
+                    modificar[j-1].setNombre(txt_nombre.getText());
+                    modificar[j-1].setApellido(txt_apellido.getText());
+                    modificar[j-1].setUser(txt_user.getText());
+                    modificar[j-1].setRol(txt_rol.getText());
+                    modificar[j-1].setPass(txt_contra.getText());
+                    //kjl
                     txt_id.setText(String.valueOf(txt_id.getText()));
                     txt_nombre.setText(modificar[j-1].getNombre());
                     txt_apellido.setText(modificar[j-1].getApellido());

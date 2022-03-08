@@ -19,23 +19,23 @@ public class Biblio_virtual extends javax.swing.JFrame {
     Usuarios[] usuarios;
     Libros[] libros;
     int posi;
-    int[] prestamos;
+    int[] disponibles;
 
     public Biblio_virtual(Usuarios[] usuarios, Libros[] libros, int posi, int[] prestamos) {
         this.usuarios = usuarios;
         this.libros = libros;
         this.posi = posi;
-        this.prestamos = prestamos;
+        this.disponibles = new int[50];
         initComponents();
         int j = 0;
         for (int i = 0; i < libros.length; i++) {
             if (libros[i] != null) {
-                j++;
-                mostrar(j, i);
+                if (libros[i].getTipo() == 3) {
+                    mostrar(j, i);
+                    j++;
+                }
             }
-
         }
-
     }
 
     /**
@@ -55,6 +55,7 @@ public class Biblio_virtual extends javax.swing.JFrame {
         txt_buscar = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,7 +64,7 @@ public class Biblio_virtual extends javax.swing.JFrame {
 
             },
             new String [] {
-                "No.", "Autor", "Año ", "Titulo", "Edición", "Descripción", "Tamaño"
+                "No.", "Autor", "Año ", "Titulo", "Edición", "Palabras clave", "Descripción", "Temas", "Tamaño"
             }
         ));
         jScrollPane1.setViewportView(tabla_libros);
@@ -76,6 +77,11 @@ public class Biblio_virtual extends javax.swing.JFrame {
         });
 
         jButton2.setText("Ver biblioteca virtual");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         combo_atributo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Autor", "Año Publicación", "Título", "Edición", "Palabras Clave", "Descripción", "Temas", "Tamaño" }));
 
@@ -93,51 +99,62 @@ public class Biblio_virtual extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setText("Agregar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_buscar)
-                            .addComponent(combo_atributo, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(265, 265, 265)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txt_buscar)
+                                .addComponent(combo_atributo, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(270, 270, 270)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5)
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                    .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(combo_atributo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(combo_atributo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(29, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton5)
+                        .addGap(74, 74, 74))))
         );
 
         pack();
@@ -151,116 +168,171 @@ public class Biblio_virtual extends javax.swing.JFrame {
             modelo.removeRow(0);
         }
         int j = 0;
-        switch (combo_atributo.getSelectedIndex()) {
-            case 0:
-                for (int i = 0; i < libros.length; i++) {
-                    if (libros[i] != null) {
-                        if (libros[i].getAutor().equals(txt_buscar.getText())) {
-                            mostrar(j, i);
-                            j++;
+        try {
+            switch (combo_atributo.getSelectedIndex()) {
+                case 0:
+                    for (int i = 0; i < libros.length; i++) {
+                        if (libros[i] != null) {
+                            if (libros[i].getAutor().equals(txt_buscar.getText())) {
+
+                                mostrar(j, i);
+                                j++;
+                            }
                         }
                     }
-                }
-                break;
-            case 1:
-                for (int i = 0; i < libros.length; i++) {
-                    if (libros[i] != null) {
-                        if (String.valueOf(libros[i].getAnio_publi()).equals(txt_buscar.getText())) {
-                            mostrar(j, i);
-                            j++;
+                    break;
+                case 1:
+                    for (int i = 0; i < libros.length; i++) {
+                        if (libros[i] != null) {
+                            if (String.valueOf(libros[i].getAnio_publi()).equals(txt_buscar.getText())) {
+                                mostrar(j, i);
+                                j++;
+                            }
                         }
                     }
-                }
-                break;
-            case 2:
-                for (int i = 0; i < libros.length; i++) {
-                    if (libros[i] != null) {
-                        if (libros[i].getTitulo().equals(txt_buscar.getText())) {
-                            mostrar(j, i);
-                            j++;
+                    break;
+                case 2:
+                    for (int i = 0; i < libros.length; i++) {
+                        if (libros[i] != null) {
+                            if (libros[i].getTitulo().equals(txt_buscar.getText())) {
+                                mostrar(j, i);
+                                j++;
+                            }
                         }
                     }
-                }
-                break;
-            case 3:
-                for (int i = 0; i < libros.length; i++) {
-                    if (libros[i] != null) {
-                        if (String.valueOf(libros[i].getEdicion()).equals(txt_buscar.getText())) {
-                            mostrar(j, i);
-                            j++;
+                    break;
+                case 3:
+                    for (int i = 0; i < libros.length; i++) {
+                        if (libros[i] != null) {
+                            if (String.valueOf(libros[i].getEdicion()).equalsIgnoreCase(txt_buscar.getText())) {
+                                mostrar(j, i);
+                                j++;
+                            }
                         }
                     }
-                }
-                break;
-            case 4://palabras clave, falta
-                for (int i = 0; i < libros.length; i++) {
-                    if (libros[i] != null) {
-                        if (libros[i].getAutor().equals(txt_buscar.getText())) {
-                            mostrar(j, i);
-                            j++;
+                    break;
+                case 4://palabras clave
+                    for (int i = 0; i < libros.length; i++) {
+                        if (libros[i] != null) {
+                            for (int k = 0; k < libros[i].getClaves().length; k++) {
+                                if (libros[i].getClaves()[k].equalsIgnoreCase(txt_buscar.getText())) {
+                                    mostrar(j, i);
+                                    j++;
+                                }
+                            }
                         }
                     }
-                }
-                break;
-            case 5:
-                for (int i = 0; i < libros.length; i++) {
-                    if (libros[i] != null) {
-                        if (libros[i].getDescripcion().equals(txt_buscar.getText())) {
-                            mostrar(j, i);
-                            j++;
+                    break;
+                case 5:
+                    for (int i = 0; i < libros.length; i++) {
+                        if (libros[i] != null) {
+                            if (libros[i].getDescripcion().equals(txt_buscar.getText())) {
+                                mostrar(j, i);
+                                j++;
+                            }
                         }
                     }
-                }
-                break;
-            case 6://temas falta
-                for (int i = 0; i < libros.length; i++) {
-                    if (libros[i] != null) {
-                        if (libros[i].getAutor().equals(txt_buscar.getText())) {
-                            mostrar(j, i);
-                            j++;
+                    break;
+                case 6://temas
+                    for (int i = 0; i < libros.length; i++) {
+                        if (libros[i] != null) {
+                            for (int k = 0; k < libros[i].getTemas().length; k++) {
+                                if (libros[i].getTemas()[k].equalsIgnoreCase(txt_buscar.getText())) {
+                                    mostrar(j, i);
+                                    j++;
+                                }
+                            }
                         }
                     }
-                }
-                break;
-            case 7:
-                for (int i = 0; i < libros.length; i++) {
-                    if (libros[i] != null) {
-                        if (String.valueOf(libros[i].getTamano()).equals(txt_buscar.getText())) {
-                            mostrar(j, i);
-                            j++;
+                    break;
+                case 7:
+                    for (int i = 0; i < libros.length; i++) {
+                        if (libros[i] != null) {
+                            if (String.valueOf(libros[i].getTamano()).equals(txt_buscar.getText())) {
+                                mostrar(j, i);
+                                j++;
+                            }
                         }
                     }
-                }
-                break;
-            default:
-                throw new AssertionError();
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Se produjo un error, revise y vuelva a intentarlo. \nError: " + e, "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Usuario_comun regresar = new Usuario_comun(usuarios, libros, posi, prestamos);
+        Usuario_comun regresar = new Usuario_comun(usuarios, libros, posi, disponibles);
         regresar.setVisible(true);
         this.hide();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Login login = new Login(usuarios, libros, prestamos);
+        Login login = new Login(usuarios, libros, disponibles);
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        Libros[] digital = usuarios[posi].getLibros();
+        int ultimo = 0;
+        boolean existe = false;
+
+        if (tabla_libros.getSelectedRow() != -1) {
+            while (digital[ultimo] != null && existe == false) {
+                if (digital[ultimo].equals(libros[disponibles[tabla_libros.getSelectedRow()]])) {
+                    existe = true;
+                    JOptionPane.showMessageDialog(null, "El libro ya existe en su "
+                            + "Biblioteca virtual",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                ultimo++;
+            }
+            if (!existe) {
+                int i = disponibles[tabla_libros.getSelectedRow()];
+                digital[ultimo] = libros[i];
+                usuarios[posi].setLibros(digital);
+                JOptionPane.showMessageDialog(null, "Se ha agregado el libro a su biblioteca virtual");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila de la tabla");
+        }
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Ver_virtual ver = new Ver_virtual(this, true, usuarios, libros, posi);
+        ver.setVisible(true);
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void mostrar(int i, int j) {
         Object matriz[][] = new Object[libros.length][14];
         if (libros[j].getTipo() == 3) {
             matriz[i][0] = i;
+            disponibles[i] = j;
             matriz[i][1] = libros[j].getAutor();
             matriz[i][2] = String.valueOf(libros[j].getAnio_publi());
             matriz[i][3] = libros[j].getTitulo();
             matriz[i][4] = String.valueOf(libros[j].getEdicion());
-            matriz[i][5] = libros[j].getDescripcion();
-            matriz[i][6] = String.valueOf(libros[j].getTamano());
+            matriz[i][5] = "";
+            for (int k = 0; k < libros[j].getClaves().length; k++) {
+                matriz[i][5] += libros[j].getClaves()[k] + ",";
+            }
+            matriz[i][6] = libros[j].getDescripcion();
+            matriz[i][7] = "";
+            for (int k = 0; k < libros[j].getTemas().length; k++) {
+                matriz[i][7] += libros[j].getTemas()[k] + ",";
+            }
+            matriz[i][8] = String.valueOf(libros[j].getTamano());
             DefaultTableModel model = (DefaultTableModel) tabla_libros.getModel();
             model.addRow(matriz[i]);
         }
@@ -277,6 +349,7 @@ public class Biblio_virtual extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla_libros;
     private javax.swing.JTextField txt_buscar;
