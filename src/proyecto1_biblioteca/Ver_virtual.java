@@ -31,21 +31,8 @@ public class Ver_virtual extends javax.swing.JDialog {
         this.disponibles = new int[50];
         initComponents();
         list_libros.setModel(model);
-        int fila = list_libros.getAnchorSelectionIndex();
-        for (int i = 0; i < fila; i++) {
-            model.remove(0);
-        }
-        int j = 0;
-        for (int i = 0; i < usuario[posi].getLibros().length; i++) {
-            if (usuario[posi].getLibros()[i] != null) {
-                if (usuario[posi].getLibros()[i].getTipo() == 3) {
-                    mostrar(i, j);
-                    j++;
-                }
-            }
-        }
+        mostrar();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -145,14 +132,17 @@ public class Ver_virtual extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void mostrar(int i, int j) {
-        Object matriz[] = new Object[usuario[posi].getLibros().length];
-        if (usuario[posi].getLibros()[i].getTipo() == 3) {
-            matriz[j] = "Titulo: " + usuario[posi].getLibros()[i].getTitulo() + " Autor: " + usuario[posi].getLibros()[i].getAutor();
-            model.addElement(matriz[j]);
-            disponibles[j] = i;
+    private void mostrar() {
+        int j = 0;
+        for (int i = 0; i < usuario[posi].getLibros().length; i++) {
+            if (usuario[posi].getLibros()[i] != null) {
+                if (usuario[posi].getLibros()[i].getTipo() == 3) {
+                    model.addElement("Titulo: " + usuario[posi].getLibros()[i].getTitulo() + " Autor: " + usuario[posi].getLibros()[i].getAutor());
+                    disponibles[j] = i;
+                    j++;
+                }
+            }
         }
-
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -161,13 +151,12 @@ public class Ver_virtual extends javax.swing.JDialog {
 
     private void list_librosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_list_librosValueChanged
         // TODO add your handling code here:
-
         if (list_libros.getSelectedIndex() != -1) {
             int i = disponibles[list_libros.getSelectedIndex()];
             txt_atributos.setText("Autor: " + usuario[posi].getLibros()[i].getAutor() + "\nAño Publicación: " + usuario[posi].getLibros()[i].getAnio_publi()
                     + "\nTítulo: " + usuario[posi].getLibros()[i].getTitulo() + "\nEdición: " + usuario[posi].getLibros()[i].getEdicion()
                     + "\nDescripción" + usuario[posi].getLibros()[i].getDescripcion()
-                    + "\nTamaño: " + usuario[posi].getLibros()[i].getTamano() + "\nTipo: " + usuario[posi].getLibros()[i].getTipo());
+                    + "\nTamaño: " + usuario[posi].getLibros()[i].getTamano());
             jButton3.setEnabled(true);
         }
 
@@ -176,25 +165,14 @@ public class Ver_virtual extends javax.swing.JDialog {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
 
-        int k = list_libros.getSelectedIndex();
-        for (; k < usuario[posi].getLibros().length - 1; k++) {
-            usuario[posi].getLibros()[k] = usuario[posi].getLibros()[k + 1];
+        int i = disponibles[list_libros.getSelectedIndex()];
+        for (; i < usuario[posi].getLibros().length - 1; i++) {
+            usuario[posi].getLibros()[i] = usuario[posi].getLibros()[i + 1];
         }
         txt_atributos.setText("");
-        int fila = list_libros.getAnchorSelectionIndex() + 1;
-        JOptionPane.showMessageDialog(this, "jkhljk" + list_libros.getAnchorSelectionIndex());
-        for (int i = 0; i < fila; i++) {
-            model.remove(0);
-        }
-        int j = 0;
-        for (int i = 0; i < usuario[posi].getLibros().length; i++) {
-            if (usuario[posi].getLibros()[i] != null) {
-                if (usuario[posi].getLibros()[i].getTipo() == 3) {
-                    mostrar(i, j);
-                    j++;
-                }
-            }
-        }
+        model.clear();
+        mostrar();
+        JOptionPane.showMessageDialog(this, "Se ha eliminado el libro de su biblioteca virtual");
         jButton3.setEnabled(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 

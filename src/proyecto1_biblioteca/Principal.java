@@ -17,11 +17,10 @@ public class Principal extends javax.swing.JFrame {
     private Libros[] libros;
    int[] prestamos;
     
-    public Principal(Usuarios[] usu, Libros[] libros,int[] prestamos) {
+    public Principal(Usuarios[] usu, Libros[] libros) {
         initComponents();
         this.usu=usu;
         this.libros=libros;
-        this.prestamos=prestamos;
     }
 
     /**
@@ -119,7 +118,7 @@ public class Principal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        Login login= new Login(usu,libros,prestamos);
+        Login login= new Login(usu,libros);
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

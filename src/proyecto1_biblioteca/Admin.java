@@ -15,7 +15,6 @@ public class Admin extends javax.swing.JFrame {
      */
     Usuarios[] usuario;
     Libros[] libros;
-    int[] prestamos;
     public Admin(Usuarios[] usuario,Libros[] libros) {
         initComponents();
         this.usuario=usuario;
@@ -253,7 +252,7 @@ public class Admin extends javax.swing.JFrame {
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
-        Login login = new Login(usuario,libros,prestamos);
+        Login login = new Login(usuario,libros);
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton11ActionPerformed

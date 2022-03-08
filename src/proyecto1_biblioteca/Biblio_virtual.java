@@ -21,7 +21,7 @@ public class Biblio_virtual extends javax.swing.JFrame {
     int posi;
     int[] disponibles;
 
-    public Biblio_virtual(Usuarios[] usuarios, Libros[] libros, int posi, int[] prestamos) {
+    public Biblio_virtual(Usuarios[] usuarios, Libros[] libros, int posi) {
         this.usuarios = usuarios;
         this.libros = libros;
         this.posi = posi;
@@ -266,14 +266,14 @@ public class Biblio_virtual extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Usuario_comun regresar = new Usuario_comun(usuarios, libros, posi, disponibles);
+        Usuario_comun regresar = new Usuario_comun(usuarios, libros, posi);
         regresar.setVisible(true);
         this.hide();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Login login = new Login(usuarios, libros, disponibles);
+        Login login = new Login(usuarios, libros);
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed

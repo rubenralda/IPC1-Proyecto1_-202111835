@@ -25,11 +25,10 @@ public class Usuario_comun extends javax.swing.JFrame {
     Libros[] libros;
     int posi;
     int[] prestamos;
-    public Usuario_comun(Usuarios[] usuarios, Libros[] libros,int posi,int[] prestamos) {
+    public Usuario_comun(Usuarios[] usuarios, Libros[] libros,int posi) {
         this.usuarios = usuarios;
         this.libros = libros;
         this.posi=posi;
-        this.prestamos=prestamos;
         initComponents();
         cambiartamaño();
         jLabel1.setText(usuarios[posi].getNombre());
@@ -88,6 +87,11 @@ public class Usuario_comun extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setText("Prestamo de libro");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton3.setText("Cerrar sesión");
@@ -171,17 +175,22 @@ public class Usuario_comun extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Biblio_virtual biblio= new Biblio_virtual(usuarios,libros,posi,prestamos);
+        Biblio_virtual biblio= new Biblio_virtual(usuarios,libros,posi);
         biblio.setVisible(true);
         this.hide();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Login login= new Login(usuarios,libros,prestamos);
+        Login login= new Login(usuarios,libros);
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
