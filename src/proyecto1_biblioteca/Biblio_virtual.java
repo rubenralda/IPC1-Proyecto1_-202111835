@@ -268,7 +268,7 @@ public class Biblio_virtual extends javax.swing.JFrame {
         // TODO add your handling code here:
         Usuario_comun regresar = new Usuario_comun(usuarios, libros, posi);
         regresar.setVisible(true);
-        this.hide();
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -311,7 +311,8 @@ public class Biblio_virtual extends javax.swing.JFrame {
         // TODO add your handling code here:
         Ver_virtual ver = new Ver_virtual(this, true, usuarios, libros, posi);
         ver.setVisible(true);
-
+        usuarios=ver.getUsuario();
+        libros=ver.getLibro();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void mostrar(int i, int j) {

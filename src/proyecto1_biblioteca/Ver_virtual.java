@@ -33,6 +33,19 @@ public class Ver_virtual extends javax.swing.JDialog {
         list_libros.setModel(model);
         mostrar();
     }
+
+    public Usuarios[] getUsuario() {
+        return usuario;
+    }
+
+    public Libros[] getLibro() {
+        return libro;
+    }
+
+    public int getPosi() {
+        return posi;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

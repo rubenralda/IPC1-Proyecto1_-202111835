@@ -24,7 +24,6 @@ public class Usuario_comun extends javax.swing.JFrame {
     Usuarios[] usuarios;
     Libros[] libros;
     int posi;
-    int[] prestamos;
     public Usuario_comun(Usuarios[] usuarios, Libros[] libros,int posi) {
         this.usuarios = usuarios;
         this.libros = libros;
@@ -177,7 +176,7 @@ public class Usuario_comun extends javax.swing.JFrame {
         // TODO add your handling code here:
         Biblio_virtual biblio= new Biblio_virtual(usuarios,libros,posi);
         biblio.setVisible(true);
-        this.hide();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -189,7 +188,9 @@ public class Usuario_comun extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
+        Prestamos_frame prestamos= new Prestamos_frame(usuarios,libros,posi);
+        prestamos.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
