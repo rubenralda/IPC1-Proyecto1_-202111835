@@ -20,8 +20,7 @@ public class Proyecto1_biblioteca {
         Usuarios[] usuario=new Usuarios[50];
         Libros[] libros= new Libros[50];
         Libros[] pres= new Libros[50];
-        usuario[0]=new Usuarios(1,"admin","admin","admin","admin","admin",libros);
-        usuario[1]=new Usuarios(12,"Ruben Alejandro","Ralda Mejia","123","Estudiante","123",pres);
+        usuario[0]=new Usuarios(1,"admin","admin","admin","admin","admin",pres);
         Principal pantalla1= new Principal(usuario,libros);
         pantalla1.setVisible(true);
         pantalla1.getContentPane().setBackground(Color.WHITE);

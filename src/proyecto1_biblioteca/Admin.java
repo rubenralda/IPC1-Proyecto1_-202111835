@@ -4,6 +4,11 @@
  */
 package proyecto1_biblioteca;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ruben
@@ -15,10 +20,11 @@ public class Admin extends javax.swing.JFrame {
      */
     Usuarios[] usuario;
     Libros[] libros;
-    public Admin(Usuarios[] usuario,Libros[] libros) {
+
+    public Admin(Usuarios[] usuario, Libros[] libros) {
         initComponents();
-        this.usuario=usuario;
-        this.libros=libros;
+        this.usuario = usuario;
+        this.libros = libros;
     }
 
     /**
@@ -71,6 +77,11 @@ public class Admin extends javax.swing.JFrame {
         jButton9.setText("Reporte Usuarios");
 
         jButton10.setText("Reporte libros");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Usuarios");
 
@@ -225,64 +236,151 @@ public class Admin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Crear_usuario crear= new Crear_usuario(this,true,usuario);
+        Crear_usuario crear = new Crear_usuario(this, true, usuario);
         crear.setVisible(true);
-        usuario=crear.getGuardar();
+        usuario = crear.getGuardar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Mostrar_usuario ver= new Mostrar_usuario(this,true,usuario);
+        Mostrar_usuario ver = new Mostrar_usuario(this, true, usuario);
         ver.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Modificar_usuario modificar= new Modificar_usuario(this,true,usuario);
+        Modificar_usuario modificar = new Modificar_usuario(this, true, usuario);
         modificar.setVisible(true);
-        usuario=modificar.getModificar();
+        usuario = modificar.getModificar();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Eliminar_usuario eliminar= new Eliminar_usuario(this,true,usuario);
+        Eliminar_usuario eliminar = new Eliminar_usuario(this, true, usuario);
         eliminar.setVisible(true);
-        usuario=eliminar.getEliminar();
+        usuario = eliminar.getEliminar();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
-        Login login = new Login(usuario,libros);
+        Login login = new Login(usuario, libros);
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
-        Carga_individual indi= new Carga_individual(this,true,libros);
+        Carga_individual indi = new Carga_individual(this, true, libros);
         indi.setVisible(true);
-        libros=indi.getLibros();
+        libros = indi.getLibros();
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        Mostrar_biblio mostrar = new Mostrar_biblio(this,true,libros);
+        Mostrar_biblio mostrar = new Mostrar_biblio(this, true, libros);
         mostrar.setVisible(true);
-        
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
-        Carga_masiva masiva= new Carga_masiva(this,true,libros);
+        Carga_masiva masiva = new Carga_masiva(this, true, libros);
         masiva.setVisible(true);
-        libros=masiva.getLibros();
+        libros = masiva.getLibros();
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        File archivo = new File("Reportes\\usuarios.html");
+        // aperturar un archivo
+        FileWriter escribir;
+        // crear nuevas lineas dentro un archivo
+        PrintWriter nuevaLinea;
+        // verifico si mi archivo existe o no existe
+        if (!archivo.exists()) {
+            try {
+                //crear mi archivo
+                archivo.createNewFile();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e);
+            }
+        }
+        try {
+            // le pasao el archivo donde quiero escribir, true 
+            escribir = new FileWriter(archivo, true);
+            // escribiendo dentro de mi archivo
+            nuevaLinea = new PrintWriter(escribir);
+            nuevaLinea.println("<!DOCTYPE html>\n"
+                    + "<html lang=\"en\">\n"
+                    + "<head>\n"
+                    + "    <meta charset=\"UTF-8\">\n"
+                    + "    <title>Document</title>\n"
+                    + "</head>\n"
+                    + "<body>");
+
+            nuevaLinea.println("<h1>Reporte libros</h1>");
+
+            for (int i = 0; i < libros.length; i++) {
+                if (libros[i] != null) {
+                    //muestro el libro
+                    nuevaLinea.println("<p><b>Titulo:</b> " + libros[i].getTitulo() + "</p>");
+                    nuevaLinea.println("<p><b>Autor:</b> " + libros[i].getAutor() + "</p>");
+                    nuevaLinea.println("<p><b>Descripcion:</b></p><p>" + libros[i].getDescripcion() + "</p>");
+                    nuevaLinea.println("<table border=\"1\">");
+                    nuevaLinea.println("<tr>");
+                    nuevaLinea.print("<td>");
+                    nuevaLinea.print("<b>Nombre</b>");
+                    nuevaLinea.print("</td>");
+                    nuevaLinea.print("<td>");
+                    nuevaLinea.print("<b>Apellido</b>");
+                    nuevaLinea.print("</td>");
+                    nuevaLinea.print("<td>");
+                    nuevaLinea.print("<b>Rol</b>");
+                    nuevaLinea.print("</td>");
+                    nuevaLinea.println("</tr>");
+                    for (int j = 0; j < usuario.length; j++) {
+                        if (usuario[j] != null) {
+                            for (int k = 0; k < usuario[j].getLibros().length; k++) {
+                                if (usuario[j].getLibros()[k] != null) {
+                                    if (usuario[j].getLibros()[k].equals(libros[i])) {
+                                        //si el libro coincide con el libro prestado por cada usuario
+                                        //fila de datos del usuario
+                                        nuevaLinea.println("<tr>");
+                                        nuevaLinea.print("<td>");
+                                        nuevaLinea.print(usuario[j].getNombre());
+                                        nuevaLinea.print("</td>");
+                                        nuevaLinea.print("<td>");
+                                        nuevaLinea.print(usuario[j].getApellido());
+                                        nuevaLinea.print("</td>");
+                                        nuevaLinea.print("<td>");
+                                        nuevaLinea.print(usuario[j].getRol());
+                                        nuevaLinea.print("</td>");
+                                        nuevaLinea.println("</tr>");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    nuevaLinea.println("</table>");
+                    nuevaLinea.println(" ");
+                    nuevaLinea.println("<p>----------------------------------------------------------------------------------------------</p>");
+                }
+            }
+            // ---------------------------
+            nuevaLinea.println("</body>\n"
+                    + "</html>");
+            // me cierra mi archivo
+            escribir.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public void regresar(){
-        
+    public void regresar() {
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

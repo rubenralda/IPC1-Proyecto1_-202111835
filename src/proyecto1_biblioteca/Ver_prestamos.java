@@ -41,7 +41,7 @@ public class Ver_prestamos extends javax.swing.JDialog {
     
     private void mostrar() {
         int j = 0;
-        Object matriz[][] = new Object[usuario[posi].getLibros().length][4];
+        Object matriz[][] = new Object[usuario[posi].getLibros().length][5];
         for (int i = 0; i < usuario[posi].getLibros().length; i++) {
             if (usuario[posi].getLibros()[i] != null) {
                 if (usuario[posi].getLibros()[i].getTipo() != 3) {
@@ -62,7 +62,7 @@ public class Ver_prestamos extends javax.swing.JDialog {
                             throw new AssertionError();
                     }
                     DefaultTableModel model = (DefaultTableModel) tabla_pres.getModel();
-                    model.addRow(matriz[i]);
+                    model.addRow(matriz[j]);
                     j++;
                 }
             }
