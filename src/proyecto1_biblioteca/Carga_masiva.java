@@ -60,7 +60,7 @@ public class Carga_masiva extends javax.swing.JDialog {
         });
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Cancelar");
+        jButton2.setText("CANCELAR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -92,9 +92,7 @@ public class Carga_masiva extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -111,11 +109,13 @@ public class Carga_masiva extends javax.swing.JDialog {
         // TODO add your handling code here:
         String[] tipos = txt_area.getText().split("\n");
         String[] libro;
+       
         for (int i = 0; i < tipos.length; i++) {
             if (tipos[i] != null) {
                 libro = tipos[i].split(";");
                 try {
-                    for (; libros[i] != null; i++) {
+                    int k=0;
+                    for (; libros[k] != null; k++) {
                     }
                     String[] claves;
                     String[] temas;
@@ -124,7 +124,7 @@ public class Carga_masiva extends javax.swing.JDialog {
                             //libros
                             claves=libro[6].split(",");
                             temas=libro[8].split(",");
-                            libros[i] = new Libros(Integer.parseInt(libro[0]), libro[1], Integer.parseInt(libro[2]),
+                            libros[k] = new Libros(Integer.parseInt(libro[0]), libro[1], Integer.parseInt(libro[2]),
                                      Integer.parseInt(libro[3]), libro[4], Integer.parseInt(libro[5]), claves, libro[7], temas,
                                     Integer.parseInt(libro[9]),
                                      Integer.parseInt(libro[13]));
@@ -134,7 +134,7 @@ public class Carga_masiva extends javax.swing.JDialog {
                             //revista
                             claves=libro[6].split(",");
                             temas=libro[8].split(",");
-                            libros[i] = new Libros(Integer.parseInt(libro[0]), libro[1], Integer.parseInt(libro[2]),
+                            libros[k] = new Libros(Integer.parseInt(libro[0]), libro[1], Integer.parseInt(libro[2]),
                                      libro[4], Integer.parseInt(libro[5]), claves, libro[7], temas,
                                     Integer.parseInt(libro[9]), libro[10], Integer.parseInt(libro[11]),
                                      Integer.parseInt(libro[13]));
@@ -144,7 +144,7 @@ public class Carga_masiva extends javax.swing.JDialog {
                             //tesis
                             claves=libro[6].split(",");
                             temas=libro[8].split(",");
-                            libros[i] = new Libros(Integer.parseInt(libro[0]), libro[1], Integer.parseInt(libro[2]),
+                            libros[k] = new Libros(Integer.parseInt(libro[0]), libro[1], Integer.parseInt(libro[2]),
                                      libro[4], Integer.parseInt(libro[5]), claves, libro[7], temas,
                                    Integer.parseInt(libro[9]),libro[12],
                                      Integer.parseInt(libro[13]));
@@ -154,7 +154,7 @@ public class Carga_masiva extends javax.swing.JDialog {
                             //digital
                             claves=libro[6].split(",");
                             temas=libro[8].split(",");
-                            libros[i] = new Libros(Integer.parseInt(libro[0]), libro[1], Integer.parseInt(libro[2]),
+                            libros[k] = new Libros(Integer.parseInt(libro[0]), libro[1], Integer.parseInt(libro[2]),
                                      libro[4], Integer.parseInt(libro[5]), claves, libro[7], temas,
                                     Integer.parseInt(libro[14]));
                             JOptionPane.showMessageDialog(null, "El libro digital se creó con exito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
