@@ -75,6 +75,11 @@ public class Admin extends javax.swing.JFrame {
         jLabel3.setText("Reportes");
 
         jButton9.setText("Reporte Usuarios");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setText("Reporte libros");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
@@ -291,35 +296,28 @@ public class Admin extends javax.swing.JFrame {
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-        File archivo = new File("Reportes\\usuarios.html");
-        // aperturar un archivo
+        File archivo = new File("Reportes\\reportelibros.html");
         FileWriter escribir;
-        // crear nuevas lineas dentro un archivo
         PrintWriter nuevaLinea;
-        // verifico si mi archivo existe o no existe
         if (!archivo.exists()) {
             try {
-                //crear mi archivo
                 archivo.createNewFile();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e);
             }
         }
         try {
-            // le pasao el archivo donde quiero escribir, true 
             escribir = new FileWriter(archivo, true);
-            // escribiendo dentro de mi archivo
             nuevaLinea = new PrintWriter(escribir);
             nuevaLinea.println("<!DOCTYPE html>\n"
                     + "<html lang=\"en\">\n"
                     + "<head>\n"
                     + "    <meta charset=\"UTF-8\">\n"
-                    + "    <title>Document</title>\n"
+                    + "    <title>Reporte</title>\n"
                     + "</head>\n"
                     + "<body>");
 
             nuevaLinea.println("<h1>Reporte libros</h1>");
-
             for (int i = 0; i < libros.length; i++) {
                 if (libros[i] != null) {
                     //muestro el libro
@@ -371,10 +369,93 @@ public class Admin extends javax.swing.JFrame {
                     + "</html>");
             // me cierra mi archivo
             escribir.close();
+            JOptionPane.showMessageDialog(this, "El reporte se ha creado con exito");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        File archivo = new File("Reportes\\reporteusuarios.html");
+        FileWriter escribir;
+        PrintWriter nuevaLinea;
+        if (!archivo.exists()) {
+            try {
+                archivo.createNewFile();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e);
+            }
+        }
+        try {
+            escribir = new FileWriter(archivo, true);
+            nuevaLinea = new PrintWriter(escribir);
+            nuevaLinea.println("<!DOCTYPE html>\n"
+                    + "<html lang=\"en\">\n"
+                    + "<head>\n"
+                    + "    <meta charset=\"UTF-8\">\n"
+                    + "    <title>Reporte</title>\n"
+                    + "</head>\n"
+                    + "<body>");
+
+            nuevaLinea.println("<h1>Reporte usuarios</h1>");
+            for (int i = 1; i < usuario.length; i++) {
+                if (usuario[i] != null) {
+                    //muestro el libro
+                    nuevaLinea.println("<p><b>Nombres:</b> " + usuario[i].getNombre() + "</p>");
+                    nuevaLinea.println("<p><b>Apellidos:</b> " + usuario[i].getApellido() + "</p>");
+                    nuevaLinea.println("<p><b>Rol:</b></p><p>" + usuario[i].getRol() + "</p>");
+                    nuevaLinea.println("<table border=\"1\">");
+                    nuevaLinea.println("<tr>");
+                    nuevaLinea.print("<td>");
+                    nuevaLinea.print("<b>Titulo</b>");
+                    nuevaLinea.print("</td>");
+                    nuevaLinea.print("<td>");
+                    nuevaLinea.print("<b>Autor</b>");
+                    nuevaLinea.print("</td>");
+                    nuevaLinea.print("<td>");
+                    nuevaLinea.print("<b>Año de publicación</b>");
+                    nuevaLinea.print("</td>");
+                    nuevaLinea.print("<td>");
+                    nuevaLinea.print("<b>Tipo</b>");
+                    nuevaLinea.print("</td>");
+                    nuevaLinea.println("</tr>");
+                    for (int j = 0; j < usuario[i].getLibros().length; j++) {
+                        if (usuario[i].getLibros()[j] != null) {
+                            //si el libro coincide con el libro prestado por cada usuario
+                            //fila de datos del usuario
+                            nuevaLinea.println("<tr>");
+                            nuevaLinea.print("<td>");
+                            nuevaLinea.print(usuario[i].getLibros()[j].getTitulo());
+                            nuevaLinea.print("</td>");
+                            nuevaLinea.print("<td>");
+                            nuevaLinea.print(usuario[i].getLibros()[j].getAutor());
+                            nuevaLinea.print("</td>");
+                            nuevaLinea.print("<td>");
+                            nuevaLinea.print(usuario[i].getLibros()[j].getAnio_publi());
+                            nuevaLinea.print("</td>");
+                            nuevaLinea.print("<td>");
+                            nuevaLinea.print(usuario[i].getLibros()[j].getTipo());
+                            nuevaLinea.print("</td>");
+                            nuevaLinea.println("</tr>");
+
+                        }
+                    }
+                    nuevaLinea.println("</table>");
+                    nuevaLinea.println(" ");
+                    nuevaLinea.println("<p>----------------------------------------------------------------------------------------------</p>");
+                }
+            }
+            // ---------------------------
+            nuevaLinea.println("</body>\n"
+                    + "</html>");
+            // me cierra mi archivo
+            escribir.close();
+            JOptionPane.showMessageDialog(this, "El reporte se ha creado con exito");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
