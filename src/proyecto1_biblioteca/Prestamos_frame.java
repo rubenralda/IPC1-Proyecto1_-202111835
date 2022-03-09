@@ -4,6 +4,9 @@
  */
 package proyecto1_biblioteca;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -122,6 +125,11 @@ public class Prestamos_frame extends javax.swing.JFrame {
         });
 
         jButton7.setText("Reporte existencias");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,7 +199,6 @@ public class Prestamos_frame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton7)
                         .addGap(18, 18, 18)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -427,11 +434,103 @@ public class Prestamos_frame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Ver_prestamos ver = new Ver_prestamos(this,true,usuarios,posi,libros);
+        Ver_prestamos ver = new Ver_prestamos(this, true, usuarios, posi, libros);
         ver.setVisible(true);
-        usuarios=ver.getUsuario();
-        libros=ver.getLibro();
+        usuarios = ver.getUsuario();
+        libros = ver.getLibro();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        File archivo = new File("Reportes\\reporteusuarios.html");
+        FileWriter escribir;
+        PrintWriter nuevaLinea;
+        if (!archivo.exists()) {
+            try {
+                archivo.createNewFile();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e);
+            }
+        }
+        try {
+            escribir = new FileWriter(archivo, true);
+            nuevaLinea = new PrintWriter(escribir);
+            nuevaLinea.println("<!DOCTYPE html>\n"
+                    + "<html lang=\"en\">\n"
+                    + "<head>\n"
+                    + "    <meta charset=\"UTF-8\">\n"
+                    + "    <title>Reporte</title>\n"
+                    + "</head>\n"
+                    + "<body>");
+
+            nuevaLinea.println("<h1>Reporte Libros para prestar</h1>");
+            nuevaLinea.println("<br>");
+            nuevaLinea.println("<table border=\"1\">");
+            nuevaLinea.println("<tr>");
+            nuevaLinea.print("<td>");
+            nuevaLinea.print("<b>Titulo</b>");
+            nuevaLinea.print("</td>");
+            nuevaLinea.print("<td>");
+            nuevaLinea.print("<b>Autor</b>");
+            nuevaLinea.print("</td>");
+            nuevaLinea.print("<td>");
+            nuevaLinea.print("<b>Año de publicación</b>");
+            nuevaLinea.print("</td>");
+            nuevaLinea.print("<td>");
+            nuevaLinea.print("<b>Edición</b>");
+            nuevaLinea.print("</td>");
+            nuevaLinea.print("<td>");
+            nuevaLinea.print("<b>Copias</b>");
+            nuevaLinea.print("</td>");
+            nuevaLinea.print("<td>");
+            nuevaLinea.print("<b>Disponible</b>");
+            nuevaLinea.print("</td>");
+            nuevaLinea.print("<td>");
+            nuevaLinea.print("<b>Tipo</b>");
+            nuevaLinea.print("</td>");
+            nuevaLinea.println("</tr>");
+            for (int i = 0; i < libros.length; i++) {
+                if (libros[i] != null) {
+                    //muestro el libro
+                    if (libros[i].getTipo() != 3) {
+                        nuevaLinea.println("<tr>");
+                        nuevaLinea.print("<td>");
+                        nuevaLinea.print(libros[i].getTitulo());
+                        nuevaLinea.print("</td>");
+                        nuevaLinea.print("<td>");
+                        nuevaLinea.print(libros[i].getAutor());
+                        nuevaLinea.print("</td>");
+                        nuevaLinea.print("<td>");
+                        nuevaLinea.print(libros[i].getAnio_publi());
+                        nuevaLinea.print("</td>");
+                        nuevaLinea.print("<td>");
+                        nuevaLinea.print(libros[i].getEdicion());
+                        nuevaLinea.print("</td>");
+                        nuevaLinea.print("<td>");
+                        nuevaLinea.print(libros[i].getCopias());
+                        nuevaLinea.print("</td>");
+                        nuevaLinea.print("<td>");
+                        nuevaLinea.print(libros[i].getDisponible());
+                        nuevaLinea.print("</td>");
+                        nuevaLinea.print("<td>");
+                        nuevaLinea.print(libros[i].getTipo());
+                        nuevaLinea.print("</td>");
+                        nuevaLinea.println("</tr>");
+                    }
+                }
+            }
+            nuevaLinea.println("</table>");
+           // ---------------------------
+            nuevaLinea.println("</body>\n"
+                    + "</html>");
+            // me cierra mi archivo
+            escribir.close();
+            JOptionPane.showMessageDialog(this, "El reporte se ha creado con exito");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+
+    }//GEN-LAST:event_jButton7ActionPerformed
     public void mostrar(int i, int j) {
         Object matriz[][] = new Object[libros.length][16];
         switch (libros[j].getTipo()) {
@@ -513,8 +612,7 @@ public class Prestamos_frame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tabla_libros.getModel();
         model.addRow(matriz[i]);
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> combo_atributo;
