@@ -6,7 +6,10 @@ package proyecto1_biblioteca;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -442,15 +445,23 @@ public class Prestamos_frame extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        File archivo = new File("Reportes\\reporteusuarios.html");
+        String cwd = System.getProperty("user.dir");
+        File dir = new File(cwd + "\\Reportes");
         FileWriter escribir;
         PrintWriter nuevaLinea;
-        if (!archivo.exists()) {
+        if (!dir.exists() && !dir.isDirectory()) {
             try {
-                archivo.createNewFile();
+                dir.mkdir();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e);
             }
+        }
+        File archivo = new File(cwd + "\\Reportes\\reportexistentes.html");
+        archivo.delete();
+        try {
+            archivo.createNewFile();
+        } catch (IOException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             escribir = new FileWriter(archivo, true);
